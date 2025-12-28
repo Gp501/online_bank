@@ -104,7 +104,7 @@ spec:
             - configMapRef:
                 name: service-api-config
 #          image: us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/frontend:v0.6.4@sha256:f25db63509515fb6caf98c8c76e906f3c2868e345767d12565ab3750e52963f0
-          image: myuniqueacr289673207.azurecr.io/online-bank:v2.0
+          image: myuniqueacr289673207.azurecr.io/online-bank:v0.1
           livenessProbe:
             httpGet:
               path: /ready
