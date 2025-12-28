@@ -29,13 +29,18 @@ WORKDIR /app
 COPY --from=builder /install /usr/local
 
 # show python logs as they occur
-ENV PYTHONUNBUFFERED=0
-
+ENV PYTHONUNBUFFERED=0 \
+    LOG_LEVEL=info \
+    PORT=8000
 # explicitly set a fallback log level in case no log level is defined by Kubernetes
 ENV LOG_LEVEL info
 
+# Environment variables ENV PYTHONUNBUFFERED=0 \ LOG_LEVEL=info \ PORT=8000 
+# Expose the port 
+EXPOSE 8000
 # Add application code.
 COPY . .
 
 # Start server using gunicorn
-CMD gunicorn -b :$PORT --threads 4 --log-config logging.conf --log-level=$LOG_LEVEL "frontend:create_app()"
+#CMD gunicorn -b :$PORT --threads 4 --log-config logging.conf --log-level=$LOG_LEVEL "frontend:create_app()"
+CMD gunicorn -b :$PORT --threads 4 --log-config logging.conf --log-level=$LOG_LEVEL --factory frontend:create_app
