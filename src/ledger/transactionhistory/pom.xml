@@ -92,6 +92,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+        <!-- commeting to running on locally
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-stackdriver</artifactId>
@@ -102,7 +103,7 @@
                     <artifactId>logback-classic</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
