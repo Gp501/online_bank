@@ -71,7 +71,9 @@ var saName = take(
 
 
 resource kv 'Microsoft.KeyVault/vaults@2023-07-01' = {
-  name: '${baseName}-kv'
+  
+  name: '${baseName}-kv-${uniqueString(resourceGroup().id)}'
+
   location: location
   properties: {
     tenantId: subscription().tenantId
