@@ -8,7 +8,9 @@ param baseName string
 // =====================
 // Name helpers (unique storage name, <= 24 chars)
 // =====================
-var saBase = toLower('${baseName}adls${uniqueString(resourceGroup().id)}')
+// var saBase = toLower('${baseName}adls${uniqueString(resourceGroup().id)}')
+var saName = take(replace('${baseName}storage', '-', ''), 24)
+
 var saName = substring(saBase, 0, 24)
 
 // =====================
