@@ -63,10 +63,12 @@ param location string = resourceGroup().location
 param baseName string
 
 // Storage name (safe)
+
 var saName = take(
-  toLower(replace('${baseName}storage', '-', '')),
+  toLower(replace('${baseName}storage${uniqueString(resourceGroup().id)}', '-', '')),
   24
 )
+
 
 resource kv 'Microsoft.KeyVault/vaults@2023-07-01' = {
   name: '${baseName}-kv'
