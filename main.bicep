@@ -1,3 +1,4 @@
+/*
 // =====================
 // Params
 // =====================
@@ -55,3 +56,49 @@ resource adls 'Microsoft.Storage/storageAccounts@2023-01-01' = {
 // =====================
 output storageAccountName string = adls.name
 output keyVaultName string = kv.name
+*/
+
+param location string = resourceGroup().location
+@description('Lowercase letters/numbers only. Used as a prefix for resource names.')
+param baseName string
+
+// Storage name (safe)
+var saName = take(
+  toLower(replace('${baseName}storage', '-', '')),
+  24
+)
+
+resource kv 'Microsoft.KeyVault/vaults@2023-07-01' = {
+  name: '${baseName}-kv'
+  location: location
+  properties: {
+    tenantId: subscription().tenantId
+    sku: {
+      family: 'A'
+      name: 'standard'
+    }
+    enableRbacAuthorization: true
+    networkAcls: {
+      bypass: 'AzureServices'
+      defaultAction: 'Deny'
+    }
+  }
+}
+
+resource adls 'Microsoft.Storage/storageAccounts@2023-01-01' = {
+  name: saName
+  location: location
+  sku: {
+    name: 'Standard_LRS'
+  }
+  kind: 'StorageV2'
+  properties: {
+    isHnsEnabled: true
+    minimumTlsVersion: 'TLS1_2'
+    allowBlobPublicAccess: false
+  }
+}
+
+output storageAccountName string = adls.name
+output keyVaultName string = kv.name
+
