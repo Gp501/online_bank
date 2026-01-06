@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: azure/login@v2
-      if: ${{ false }} # flip to true when ready; avoids needing secrets now
+      if: ${{ true }} # flip to true when ready; avoids needing secrets now
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: (Docs) Print next steps
